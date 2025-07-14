@@ -1,0 +1,53 @@
+.main{
+    padding-top: 5%;
+}
+.contact{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.left, form{
+    width: 40%;
+    margin-bottom: 5%;
+    margin-inline: 5%;
+}
+label, p{
+    color: white;
+    font-size: 3rem;
+}
+.input, label{
+    font-size: 3rem;
+    display: flex;
+    flex-direction: column;
+}
+.input{
+    font-size: 2rem;
+    border-radius: 10px;
+    width: 100%;
+    margin-bottom: 2%;
+    padding-inline: 1%;
+}
+h1, .tech{
+    color: white;
+    text-wrap: wrap;
+    width: 90%;
+}
+h1{
+    font-size: 5rem;
+}
+.button{
+    margin-top: 2vh;
+}
+@media (max-width: 1100px){
+    .left, form{
+        width: 100%;
+        margin-bottom: 10%;
+    }
+    h1{
+        font-size: 3rem;
+    }
+    label, p{
+        font-size: 2rem;
+    }
+}

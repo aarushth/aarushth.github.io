@@ -1,0 +1,39 @@
+.photo{
+  width: 20vw;             
+  height: 20vw;
+  object-fit: cover;         
+  border-radius: 50%;      
+  border: 1vw solid var(--accent);
+  display: block;
+
+}
+.text{
+  color: white;
+  width: 70vw;
+  font-size: 4rem;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10vw;
+
+}
+.text span{
+  color: var(--accent);
+}
+.intro{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+
+@media(max-width: 1000px){
+  .photo{
+    width: 60vw;
+    height: 60vw;
+    border: 3vw solid var(--accent);
+  }
+  .text{
+    font-size: 2rem;
+  }
+}
+
