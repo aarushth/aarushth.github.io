@@ -12,24 +12,42 @@ document.body.appendChild(tag);
 
 // Called when the API is ready
 window.onYouTubeIframeAPIReady = function () {
-player = new YT.Player('player', {
-	videoId: 'IzaRPlO3E88', // Replace with your video ID
-	playerVars: {
-	autoplay: 1,
-	mute: 1,
-	controls: 0,
-	modestbranding: 1,
-	rel: 0,
-	playsinline: 1,
-	loop: 1,
-	playlist: 'IzaRPlO3E88' // Required for looping
-	},
-	events: {
-	onReady: (event) => event.target.playVideo()
-	}
-});
-}
+	player = new YT.Player('player', {
+		videoId: 'IzaRPlO3E88', // Replace with your video ID
+		playerVars: {
+		autoplay: 1,
+		mute: 1,
+		controls: 0,
+		modestbranding: 1,
+		rel: 0,
+		playsinline: 1,
+		loop: 1,
+		playlist: 'IzaRPlO3E88' // Required for looping
+		},
+		events: {
+		onReady: (event) => event.target.playVideo()
+		}
+	});
 
+	// player2 = new YT.Player('player2', {
+	// 	videoId: 'ZF5OOhrYnLU',
+	// 	playerVars: {
+	// 		autoplay: 1,
+	// 		mute: 1,
+	// 		controls: 0,
+	// 		modestbranding: 1,
+	// 		rel: 0,
+	// 		playsinline: 1,
+	// 		loop: 1,
+	// 		playlist: 'ZF5OOhrYnLU'
+	// 	},
+	// 	events: {
+	// 		onReady: (event) => {
+	// 			event.target.setPlaybackQuality('hd1080');
+	// 		}
+	// 	}
+    // });
+}
 const button = document.getElementById("muteToggle");
 
 const scrambleTo = (text, desc) => {

@@ -59,35 +59,39 @@ function playRevealAnimation() {
     }, "<"); // staggered start
   });
 }
+let loadedImages = 0;
+const progress = document.getElementById("progress")
 async function loadImagesSequentially() {
-  for (let i = 0; i < totalImages; i++) {
-    const texture = await loadTexture(`https://aarushth.github.io/portfolio-images/${i + 1}.jpg`);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    const angle = (i % imagesPerRow / imagesPerRow) * Math.PI * 2;
+    for (let i = 0; i < totalImages; i++) {
+        const texture = await loadTexture(`https://aarushth.github.io/portfolio-images/${i + 1}.jpg`);
+        texture.colorSpace = THREE.SRGBColorSpace;
+        const angle = (i % imagesPerRow / imagesPerRow) * Math.PI * 2;
 
-    texture.wrapS = THREE.ClampToEdgeWrapping;
-    texture.wrapT = THREE.ClampToEdgeWrapping;
-    texture.minFilter = THREE.LinearFilter;
-    texture.generateMipmaps = false;
+        texture.wrapS = THREE.ClampToEdgeWrapping;
+        texture.wrapT = THREE.ClampToEdgeWrapping;
+        texture.minFilter = THREE.LinearFilter;
+        texture.generateMipmaps = false;
 
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(texture.image.width / texture.image.height, 1), new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide }));
+        const mesh = new THREE.Mesh(new THREE.PlaneGeometry(texture.image.width / texture.image.height, 1), new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide }));
 
-    mesh.position.x = radius * Math.cos(angle);
-    mesh.position.y = (Math.floor(i / imagesPerRow) - 1) * verticalSpacing;
-    mesh.position.z = radius * Math.sin(angle);
-    
-    mesh.lookAt(0, mesh.position.y, 0);
-    mesh.rotateY(Math.PI);
+        mesh.position.x = radius * Math.cos(angle);
+        mesh.position.y = (Math.floor(i / imagesPerRow) - 1) * verticalSpacing;
+        mesh.position.z = radius * Math.sin(angle);
+        
+        mesh.lookAt(0, mesh.position.y, 0);
+        mesh.rotateY(Math.PI);
 
-    mesh.scale.set(0, 0, 0); // start hidden
+        mesh.scale.set(0, 0, 0); // start hidden
 
-    scene.add(mesh);
-    loadedMeshes.push(mesh);
-  }
+        scene.add(mesh);
+        loadedMeshes.push(mesh);
+        loadedImages++;
+        progress.value = 100*(loadedImages/totalImages)
+    }
 
-  loadingEl.style.display = "none";
-  playRevealAnimation();
-  controls.enabled = true;
+	loadingEl.style.display = "none";
+	playRevealAnimation();
+	controls.enabled = true;
 }
 
 

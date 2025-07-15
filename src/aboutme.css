@@ -34,6 +34,7 @@ h1{
 .inner-container{
     height: 100vh;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
     scroll-behavior: smooth;
 }
 .main {
@@ -57,6 +58,9 @@ h1{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.circle{
+    height: 130vh;
 }
 span{
     color: var(--accent);
@@ -111,7 +115,9 @@ iframe{
         
     }
     .text{
-        height: 35vh;
+        height: 45vh;
+        margin-top: 5vh;
+        background: linear-gradient(black, transparent 80%);
     }
     .vids{
         height: 50vh;
@@ -128,8 +134,12 @@ iframe{
         height: 50vh;
         width: 100vw;
         margin: 0;
-        margin-bottom: 20vh;
+        margin-bottom: 10vh;
         /* padding-bottom: 20vh; */
+    }
+    .circle{
+        height: 80vh;
+
     }
     h1{
         font-size: 3rem;

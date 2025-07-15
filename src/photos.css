@@ -15,11 +15,6 @@ html, body {
     background: linear-gradient(black 20%, transparent 25%, transparent 80%, black 85%);
     display: none;
 }
-@media(max-width:1000px){
-    #vignette{
-        display:block;
-    }
-}
 #close{
 	background-color: transparent;
     color: white;
@@ -35,4 +30,18 @@ html, body {
 	transform: translate(-50%, -50%);
 	opacity: 0;
 }
+#footer{
+    position: fixed;
+    bottom: 0;
+}
+@media(max-width:1000px){
+    #vignette{
+        display:block;
+    }
+    #close{
+        top:20%;
+        font-size:2rem;
+    }
+}
+
 
