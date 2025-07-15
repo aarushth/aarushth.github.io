@@ -28,25 +28,6 @@ window.onYouTubeIframeAPIReady = function () {
 		onReady: (event) => event.target.playVideo()
 		}
 	});
-
-	// player2 = new YT.Player('player2', {
-	// 	videoId: 'ZF5OOhrYnLU',
-	// 	playerVars: {
-	// 		autoplay: 1,
-	// 		mute: 1,
-	// 		controls: 0,
-	// 		modestbranding: 1,
-	// 		rel: 0,
-	// 		playsinline: 1,
-	// 		loop: 1,
-	// 		playlist: 'ZF5OOhrYnLU'
-	// 	},
-	// 	events: {
-	// 		onReady: (event) => {
-	// 			event.target.setPlaybackQuality('hd1080');
-	// 		}
-	// 	}
-    // });
 }
 const button = document.getElementById("muteToggle");
 
@@ -75,8 +56,6 @@ window.addEventListener("load", () => {
   	if ('scrollRestoration' in history) {
 		history.scrollRestoration = 'manual';
 	}
-  	
-	
 });
 const muted = '/svg/sound-min-svgrepo-com.svg'
 const unmuted = '/svg/sound-max-svgrepo-com.svg'

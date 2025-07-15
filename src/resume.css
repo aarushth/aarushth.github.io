@@ -78,6 +78,13 @@ section{
         margin-bottom: 2rem;
         font-size: 1rem;
     }
+    .button{
+        padding-block: 1.5vh;
+        padding-inline: 4vh;
+
+        font-size: 1rem;
+        margin-bottom: 5vh;
+    }
 }
 .last{
     border: none !important;

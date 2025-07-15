@@ -194,7 +194,6 @@ footer{
   z-index: 2;
   color: white;
   background: linear-gradient(transparent,  black 20%);
-  margin-bottom: 8vh;
 }
 .hov{
   position: relative;
@@ -243,6 +242,7 @@ footer{
 	}
 	footer{
 		padding: 0rem 0.2rem;
+		padding-bottom: 4vh;
 	}
 	.scroll-indicator {
 		bottom: 20vh;
@@ -281,7 +281,7 @@ footer{
 		font-size: 1.3rem;
 	}
 	.built{
-		font-size: 1rem;
+		font-size: 0.8rem;
 	}
 	.svg-wrapper{
 		padding-inline: 2px;
@@ -293,25 +293,8 @@ footer{
 		width: 60%;
 		margin-right: 5%;
 	}
-	footer{
-		margin-bottom: 0;
-	}
 }
-/* @media(max-width:750px){
-  .socials{
-	width: 30%;
-  }
-}
-@media(max-width:650px){
-  .socials{
-	width: 50%;
-  }
-}
-@media(max-width:600px){
-  .socials{
-	width: 45%;
-  }
-} */
+
 
 
 @keyframes float {

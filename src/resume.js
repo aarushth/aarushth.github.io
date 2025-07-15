@@ -26,3 +26,7 @@ const observer = new IntersectionObserver((entries) => {
 const elements = document.querySelectorAll(".ani");
 // elements.forEach((el) => {el.style.opacity = 0; el.style.x = 100})
 elements.forEach((el) => observer.observe(el));
+
+window.onscroll = function hideArrow(){
+	gsap.to(document.getElementById("arrow"), {opacity: 0, duration: 1});
+}

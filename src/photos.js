@@ -28,8 +28,11 @@ controls.enablePan = false;
 controls.enableZoom = false;
 controls.autoRotate = true;
 controls.autoRotateSpeed = 1;
+let rotating = false;
 
-
+let clickStart = {x: 0, y: 0, time: 0};
+const clickThreshold = 5;
+const timeThreshold = 300;
 const textureLoader = new THREE.TextureLoader();
 // const sideMaterial = new THREE.MeshDepthMaterial({color: 0xffffff });
 //image
@@ -66,7 +69,6 @@ async function loadImagesSequentially() {
         const texture = await loadTexture(`https://aarushth.github.io/portfolio-images/${i + 1}.jpg`);
         texture.colorSpace = THREE.SRGBColorSpace;
         const angle = (i % imagesPerRow / imagesPerRow) * Math.PI * 2;
-
         texture.wrapS = THREE.ClampToEdgeWrapping;
         texture.wrapT = THREE.ClampToEdgeWrapping;
         texture.minFilter = THREE.LinearFilter;
@@ -92,6 +94,7 @@ async function loadImagesSequentially() {
 	loadingEl.style.display = "none";
 	playRevealAnimation();
 	controls.enabled = true;
+	console.log(controls.enabled);
 }
 
 
@@ -129,26 +132,59 @@ let storedCameraRotation = new THREE.Euler();
 let storedTarget = new THREE.Vector3();
 let selectedMesh = null;
 
-window.addEventListener('click', (event) => {
-  // Normalize mouse coordinates
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-  
-  raycaster.setFromCamera(mouse, camera);
-
-  const intersects = raycaster.intersectObjects(scene.children, true);
-  if (intersects.length > 0) {
-    const clicked = intersects[0].object;
-    console.log('Clicked on:', clicked.name || clicked.uuid);
-    zoomToObject(clicked);
-  }
+window.addEventListener('mousedown', (event) => {
+	clickStart.x = event.clientX;
+	clickStart.y = event.clientY;
+	clickStart.time = performance.now();
 });
+
+window.addEventListener('mouseup', (event) => {
+	const dx = event.clientX - clickStart.x;
+	const dy = event.clientY - clickStart.y;
+	const dist = Math.sqrt(dx * dx + dy * dy);
+	const time = performance.now() - clickStart.time;
+
+	if (dist < clickThreshold && time < timeThreshold) {
+		// Treat it as a click
+		handleClickSelection(event);
+	}
+});
+function handleClickSelection(event){
+	mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+	mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+	
+	raycaster.setFromCamera(mouse, camera);
+
+	const intersects = raycaster.intersectObjects(scene.children, true);
+	if (intersects.length > 0) {
+		const clicked = intersects[0].object;
+		// console.log('Clicked on:', clicked.name || clicked.uuid);
+		zoomToObject(clicked);
+	}
+}
+// window.addEventListener('click', (event) => {
+// 	if(!rotating){
+// 		// Normalize mouse coordinates
+// 		mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+// 		mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+		
+// 		raycaster.setFromCamera(mouse, camera);
+
+// 		const intersects = raycaster.intersectObjects(scene.children, true);
+// 		if (intersects.length > 0) {
+// 			const clicked = intersects[0].object;
+// 			// console.log('Clicked on:', clicked.name || clicked.uuid);
+// 			zoomToObject(clicked);
+// 		}
+// 	}
+// });
 function getCameraDistance(imageWidth, imageHeight, screenWidth, screenHeight) {
   const aspect = screenWidth / screenHeight;
   const distanceH = imageWidth / (2 * 0.4142 * aspect);
   const distanceV = imageHeight / (2* 0.4142);
   return Math.max(distanceH, distanceV) + 0.5; 
 }
+
 function zoomToObject(object) {
 
   if(isZoomedIn) return
@@ -166,7 +202,7 @@ function zoomToObject(object) {
   const targetPosition = new THREE.Vector3();
   object.getWorldPosition(targetPosition);
   
-  console.log("target pos:", targetPosition);
+//   console.log("target pos:", targetPosition);
 
   // Get the object's forward direction (-Z)
   const outward = targetPosition.clone().sub(new THREE.Vector3(0, targetPosition.y, 0)).normalize();
@@ -174,9 +210,9 @@ function zoomToObject(object) {
   // Move camera 1.5 units in front of object
   const zoom = getCameraDistance(selectedMesh.geometry.parameters.width, selectedMesh.geometry.parameters.height, sizes.width, sizes.height);
   const cameraTarget = targetPosition.clone().add(outward.multiplyScalar(zoom));
-  console.log("window width:", sizes.width);
+//   console.log("window width:", sizes.width);
   // console.log("object width:", );
-  console.log("zoom:", zoom);
+//   console.log("zoom:", zoom);
 
   const time = gsap.timeline();
   time.to(camera.position, {

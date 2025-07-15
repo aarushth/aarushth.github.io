@@ -15,6 +15,9 @@ html, body {
     background: linear-gradient(black 20%, transparent 25%, transparent 80%, black 85%);
     display: none;
 }
+.main{
+    pointer-events: none;
+}
 #close{
 	background-color: transparent;
     color: white;
@@ -25,7 +28,7 @@ html, body {
 	font-size: 5rem;
 	font-weight: bold;
 	left: 10%;
-	top:0%;
+	top:20%;
 	text-align: center;
 	transform: translate(-50%, -50%);
 	opacity: 0;
@@ -39,7 +42,6 @@ html, body {
         display:block;
     }
     #close{
-        top:20%;
         font-size:2rem;
     }
 }
