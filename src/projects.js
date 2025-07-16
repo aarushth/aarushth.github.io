@@ -60,7 +60,6 @@ controls.autoRotateSpeed = 3;
 
 let heightdiff = window.innerWidth > 900 ? "30vh" : "20vh";
 
-console.log(heightdiff);
 window.addEventListener('resize', () => {
     let rect = wrapper.getBoundingClientRect();
     sizes.x = rect.width
@@ -79,7 +78,162 @@ window.addEventListener('resize', () => {
 const rgbeLoader = new RGBELoader();
 const pmremGenerator = new THREE.PMREMGenerator(renderer);
 pmremGenerator.compileEquirectangularShader();
+let currentSection = 0;
+const totalSections = 4;
+let moving = false;
+function goTo(newSection){
+    if(! moving){
+        moving = true
+        if(newSection >= currentSection){
+            newSection = newSection % totalSections
+            const el = "#a" + currentSection;
+            const newEl = "#a" + newSection;
 
+            document.querySelector(newEl).style.zIndex = 2;
+            document.querySelector(el).style.zIndex = 1;  
+
+            const timeline = gsap.timeline({
+                defaults: { duration: 1 },
+                onComplete: () => {
+                    moving = false;
+                    document.querySelector(el).style.zIndex = 0;
+                }
+            });
+            timeline.to(el, {
+                y: "-" + heightdiff,
+                ease: "back.out(1.5)", 
+            })
+            .to(el, {
+                rotateX: 90,
+                ease: "expo.out"
+            }, "<")
+            .to(el, {
+                opacity: 0,
+                ease: "expo.in", 
+            }, "<")
+            .to(groups[currentSection].scale, {
+                x: 0,
+                y: 0,
+                z: 0,
+                ease: "expo.out"
+            }, "<");
+            timeline.fromTo(newEl,
+                { y: heightdiff, rotateX: 90 },
+                {
+                y: 0,
+                rotateX: 0,
+                ease: "back.out(1.5)"
+                },
+                "<+=0.1"
+            )
+            .fromTo(newEl,
+                { opacity: 0 },
+                {
+                opacity: 1,
+                ease: "expo.out" 
+                },
+                "<"
+            )
+            .fromTo(groups[newSection].scale,
+                {
+                    x:0,
+                    y:0,
+                    z:0
+                },{
+                    x:1,
+                    y:1,
+                    z:1,
+                    ease: "back.out(1.5)"
+                },
+                "<"
+            )
+            currentSection = newSection 
+        }else if(newSection < currentSection){
+            newSection = (newSection + totalSections) % totalSections
+            const el = "#a" + currentSection;
+            const newEl = "#a" + newSection;
+
+            document.querySelector(newEl).style.zIndex = 2;
+            document.querySelector(el).style.zIndex = 1;  
+
+            const timeline = gsap.timeline({
+                defaults: { duration: 1 },
+                onComplete: () => {
+                    moving = false;
+                    document.querySelector(el).style.zIndex = 0;
+                }
+            });
+
+            timeline.to(el, {
+                y: heightdiff,
+                ease: "back.out(1.5)", 
+            })
+            .to(el, {
+                rotateX: 90,
+                ease: "expo.out"
+            }, "<")
+            .to(el, {
+                opacity: 0,
+                ease: "expo.in", 
+            }, "<")
+            .to(groups[currentSection].scale, {
+                x: 0,
+                y: 0,
+                z: 0,
+                ease: "expo.out"
+            }, "<");
+            timeline.fromTo(newEl,
+                { y: "-" + heightdiff, rotateX: 90 },
+                {
+                y: 0,
+                rotateX: 0,
+                ease: "back.out(1.5)"
+                },
+                "<+=0.1"
+            )
+            .fromTo(newEl,
+                { opacity: 0 },
+                {
+                    opacity: 1,
+                    ease: "expo.out" 
+                },
+                "<"
+            )
+            .fromTo(groups[newSection].scale,
+                {
+                    x:0,
+                    y:0,
+                    z:0
+                },{
+                    x:1,
+                    y:1,
+                    z:1,
+                    ease: "back.out(1.5)"
+                },
+                "<"
+            )
+            currentSection = newSection 
+        }
+    }
+}
+const t = gsap.timeline();
+t.fromTo("#a0",
+    { y: "-" + heightdiff, rotateX: 90 },
+    {
+    y: 0,
+    rotateX: 0,
+    ease: "back.out(1.5)"
+    },
+    "<+=0.1"
+)
+.fromTo("#a0",
+    { opacity: 0 },
+    {
+        opacity: 1,
+        ease: "expo.out" 
+    },
+    "<"
+)
 rgbeLoader.load('/models/env_map.hdr', (hdrTexture) => {
     const envMap = pmremGenerator.fromEquirectangular(hdrTexture).texture;
 
@@ -289,144 +443,6 @@ const groups = [phoneGroup, cubeGroup, rayTraceGroup, sudokuGroup];
 
 
 
-let currentSection = 3;
-const totalSections = 4;
-let moving = false;
-function goTo(newSection){
-    if(! moving){
-        moving = true
-        if(newSection >= currentSection){
-            newSection = newSection % totalSections
-            const el = "#a" + currentSection;
-            const newEl = "#a" + newSection;
-
-            document.querySelector(newEl).style.zIndex = 2;
-            document.querySelector(el).style.zIndex = 1;  
-
-            const timeline = gsap.timeline({
-                defaults: { duration: 1 },
-                onComplete: () => {
-                    moving = false;
-                    document.querySelector(el).style.zIndex = 0;
-                }
-            });
-            timeline.to(el, {
-                y: "-" + heightdiff,
-                ease: "back.out(1.5)", 
-            })
-            .to(el, {
-                rotateX: 90,
-                ease: "expo.out"
-            }, "<")
-            .to(el, {
-                opacity: 0,
-                ease: "expo.in", 
-            }, "<")
-            .to(groups[currentSection].scale, {
-                x: 0,
-                y: 0,
-                z: 0,
-                ease: "expo.out"
-            }, "<");
-            timeline.fromTo(newEl,
-                { y: heightdiff, rotateX: 90 },
-                {
-                y: 0,
-                rotateX: 0,
-                ease: "back.out(1.5)"
-                },
-                "<+=0.1"
-            )
-            .fromTo(newEl,
-                { opacity: 0 },
-                {
-                opacity: 1,
-                ease: "expo.out" 
-                },
-                "<"
-            )
-            .fromTo(groups[newSection].scale,
-                {
-                    x:0,
-                    y:0,
-                    z:0
-                },{
-                    x:1,
-                    y:1,
-                    z:1,
-                    ease: "back.out(1.5)"
-                },
-                "<"
-            )
-            currentSection = newSection 
-        }else if(newSection < currentSection){
-            newSection = (newSection + totalSections) % totalSections
-            const el = "#a" + currentSection;
-            const newEl = "#a" + newSection;
-
-            document.querySelector(newEl).style.zIndex = 2;
-            document.querySelector(el).style.zIndex = 1;  
-
-            const timeline = gsap.timeline({
-                defaults: { duration: 1 },
-                onComplete: () => {
-                    moving = false;
-                    document.querySelector(el).style.zIndex = 0;
-                }
-            });
-
-            timeline.to(el, {
-                y: heightdiff,
-                ease: "back.out(1.5)", 
-            })
-            .to(el, {
-                rotateX: 90,
-                ease: "expo.out"
-            }, "<")
-            .to(el, {
-                opacity: 0,
-                ease: "expo.in", 
-            }, "<")
-            .to(groups[currentSection].scale, {
-                x: 0,
-                y: 0,
-                z: 0,
-                ease: "expo.out"
-            }, "<");
-            timeline.fromTo(newEl,
-                { y: "-" + heightdiff, rotateX: 90 },
-                {
-                y: 0,
-                rotateX: 0,
-                ease: "back.out(1.5)"
-                },
-                "<+=0.1"
-            )
-            .fromTo(newEl,
-                { opacity: 0 },
-                {
-                    opacity: 1,
-                    ease: "expo.out" 
-                },
-                "<"
-            )
-            .fromTo(groups[newSection].scale,
-                {
-                    x:0,
-                    y:0,
-                    z:0
-                },{
-                    x:1,
-                    y:1,
-                    z:1,
-                    ease: "back.out(1.5)"
-                },
-                "<"
-            )
-            currentSection = newSection 
-        }
-    }
-}
 
 Observer.create({
   target: window, 
@@ -450,4 +466,16 @@ const loop = () => {
 loop();
 
 
-goTo(0);
+gsap.fromTo(groups[0].scale,
+                {
+                    x:0,
+                    y:0,
+                    z:0
+                },{
+                    x:1,
+                    y:1,
+                    z:1,
+                    ease: "back.out(1.5)"
+                },
+                "<"
+            )
