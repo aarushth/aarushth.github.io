@@ -4,6 +4,7 @@ import {gsap} from 'gsap';
 
 const loadingEl = document.getElementById("loading-indicator");
 loadingEl.style.display = "block";
+
 const closeButton = document.getElementById("close");
 THREE.Cache.enabled = true;
 const sizes = {width : window.innerWidth, height : window.innerHeight};
@@ -17,7 +18,7 @@ scene.add(camera);
 const canvas = document.querySelector(".webgl");
 const renderer = new THREE.WebGLRenderer({canvas});
 renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(1);
+renderer.setPixelRatio(window.devicePixelRatio);
 
 const controls = new OrbitControls(camera, canvas);
 controls.enabled = false;
@@ -94,7 +95,6 @@ async function loadImagesSequentially() {
 	loadingEl.style.display = "none";
 	playRevealAnimation();
 	controls.enabled = true;
-	console.log(controls.enabled);
 }
 
 
@@ -162,22 +162,7 @@ function handleClickSelection(event){
 		zoomToObject(clicked);
 	}
 }
-// window.addEventListener('click', (event) => {
-// 	if(!rotating){
-// 		// Normalize mouse coordinates
-// 		mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-// 		mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-		
-// 		raycaster.setFromCamera(mouse, camera);
 
-// 		const intersects = raycaster.intersectObjects(scene.children, true);
-// 		if (intersects.length > 0) {
-// 			const clicked = intersects[0].object;
-// 			// console.log('Clicked on:', clicked.name || clicked.uuid);
-// 			zoomToObject(clicked);
-// 		}
-// 	}
-// });
 function getCameraDistance(imageWidth, imageHeight, screenWidth, screenHeight) {
   const aspect = screenWidth / screenHeight;
   const distanceH = imageWidth / (2 * 0.4142 * aspect);

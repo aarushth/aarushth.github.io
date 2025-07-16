@@ -4,19 +4,12 @@ html, body {
   display: flex;
   flex-direction: column;
 }
-#vignette{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1;
-    pointer-events: none;
-    background: linear-gradient(black 20%, transparent 25%, transparent 80%, black 85%);
-    display: none;
+nav{
+    z-index: 4;
 }
-.main{
-    pointer-events: none;
+.title{
+    z-index: 5;
+    top: 18%;
 }
 #close{
 	background-color: transparent;
@@ -38,9 +31,6 @@ html, body {
     bottom: 0;
 }
 @media(max-width:1000px){
-    #vignette{
-        display:block;
-    }
     #close{
         font-size:2rem;
     }

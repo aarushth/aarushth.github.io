@@ -9,7 +9,8 @@ export default defineConfig({
 				aboutme: './aboutme.html',
 				photos: './photos.html',
 				resume: './resume.html',
-				contactme: './contactme.html'
+				contactme: './contactme.html',
+				projects: './projects.html'
 			}
 		}
 	},
