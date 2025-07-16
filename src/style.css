@@ -191,6 +191,7 @@ footer{
   z-index: 2;
   color: white;
   background: linear-gradient(transparent,  black 20%);
+  margin-bottom: 1vh;
 }
 .hov{
   position: relative;
