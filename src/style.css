@@ -173,6 +173,7 @@ progress::-moz-progress-bar {
 	gap: 1rem;
 	padding-right: 2%;
 	width: 50%;
+  margin-bottom: 1vh;
 }
 .built{
   padding-left: 2%;
@@ -181,6 +182,7 @@ progress::-moz-progress-bar {
   font-size: 1.5rem;
   color: rgb(131, 131, 131);
   align-self: flex-end;
+  margin-bottom: 1vh;
 }
 
 footer{
@@ -191,7 +193,6 @@ footer{
   z-index: 2;
   color: white;
   background: linear-gradient(transparent,  black 20%);
-  margin-bottom: 1vh;
 }
 .hov{
   position: relative;
