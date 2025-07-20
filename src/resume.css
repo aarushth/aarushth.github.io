@@ -17,6 +17,10 @@ ul{
     justify-content: space-between;
     width: 100%;
 }
+.header a{
+    pointer-events: all;
+    
+}
 .header p{
     align-self: center;
     font-size: 4rem;
