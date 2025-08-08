@@ -10,7 +10,8 @@ export default defineConfig({
 				photos: './photos.html',
 				resume: './resume.html',
 				contactme: './contactme.html',
-				projects: './projects.html'
+				projects: './projects.html',
+				rubikscube: './rubikscube.html'
 			}
 		}
 	},

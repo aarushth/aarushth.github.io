@@ -1,0 +1,41 @@
+iframe {
+
+    width: 80vw;
+    height: 80vh;
+
+    border: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+    /* Move it back by half width and height after rotation */
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease;
+}
+
+/* Rotate on small screens (mobile) */
+@media (max-width: 768px) {
+  iframe {
+    /* Rotate 90 degrees clockwise */
+    transform: rotate(90deg);
+
+    width: 80vh;
+    height: 95vw;
+
+    border: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+    /* Move it back by half width and height after rotation */
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+
+  #iframe-container {
+    position: relative;
+    width: 100vw;
+    flex: 1;
+    overflow: hidden;
+  }
+}
