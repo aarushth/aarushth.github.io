@@ -11,7 +11,8 @@ export default defineConfig({
 				resume: './resume.html',
 				contactme: './contactme.html',
 				projects: './projects.html',
-				rubikscube: './rubikscube.html'
+				rubikscube: './rubikscube.html',
+				sudoku: './sudoku.html'
 			}
 		}
 	},
